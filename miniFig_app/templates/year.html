@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year</title>
+</head>
+<body>
+    {% include 'nav_module.html' %}
+    <div class="search-bar">
+        <input type="text" placeholder="Search..">
+        <button>Find</button>
+    </div>
+    <div class="sort-by-year">
+            <label for="sort_by_year">Sort by year</label>
+            <select name="sort_by_year" id="sort_by_year">
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+            </select>
+    </div>
+    <div class="show-fig">
+        <div>
+            <img src="IMG69.png" alt="">
+        </div>
+        <div class="fig-detail">
+            <p>MiniFig Number: {{MiniFig Number}}</p>
+            <p>MiniFig Name: {{MiniFig Name}}</p>
+        </div>
+    </div>
+</body>
+</html>
