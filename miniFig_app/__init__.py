@@ -14,6 +14,11 @@ migrate = Migrate(app, db)
 
 from miniFig_app.models.figure import Figure # import model class so it can be initalized
 from miniFig_app.models.user import User # import model class so it can be initalized
+from miniFig_app.models.cart import Cart # import model class so it can be initalized
+from miniFig_app.models.purchased_item import Purchased_item # import model class so it can be initalized
+from miniFig_app.models.transaction import Transaction # import model class so it can be initalized
+from miniFig_app.models.sell_fig import Sell_fig # import model class so it can be initalized
+
 
 # Create database table
 with app.app_context():
