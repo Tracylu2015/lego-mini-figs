@@ -7,9 +7,8 @@ class Cart(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     fig_quantity = db.Column(db.Integer)
-    # parent_id = Column(Integer, ForeignKey('parent.id'))
-    user_id = db.Column(db.Integer, ForeignKey('user.id'))
-    sell_fig_id = db.Column(db.Integer, ForeignKey('sell_fig.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    sell_fig_id = db.Column(db.Integer, db.ForeignKey('sell_figs.id'))
 
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.current_timestamp())

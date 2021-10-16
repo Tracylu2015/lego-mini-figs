@@ -6,10 +6,8 @@ class Purchased_item(db.Model):
     __tablename__ = "purchased_items"
 
     id = db.Column(db.Integer, primary_key=True)
-
-    # parent_id = Column(Integer, ForeignKey('parent.id'))
-    sell_fig_id = db.Column(db.Integer, ForeignKey('sell_fig.id'))
-    transaction_id = db.Column(db.Integer, ForeignKey('transaction.id'))
+    sell_fig_id = db.Column(db.Integer, db.ForeignKey('sell_figs.id'))
+    transaction_id = db.Column(db.Integer, db.ForeignKey('transactions.id'))
 
 
     def __repr__(self):
