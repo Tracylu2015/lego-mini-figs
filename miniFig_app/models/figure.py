@@ -7,7 +7,7 @@ from miniFig_app import db
 class Figure(db.Model):
     __tablename__ = "figures"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(255), primary_key=True)
     name = db.Column(db.String(255), index=True, unique=True)
     year = db.Column(db.Integer)
     theme = db.Column(db.String(255))
