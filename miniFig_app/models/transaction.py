@@ -8,7 +8,7 @@ class Transaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    purchased_item = relationship("Purchased_items")
+    purchased_item = relationship("Purchased_item")
 
     def __repr__(self):
         return '<Transaction {}>'.format(self.__dict__)

@@ -7,9 +7,9 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(255), index=True, unique=True)
-    last_name = db.Column(db.String(255), index=True, unique=True)
-    email = db.Column(db.String(255))
+    first_name = db.Column(db.String(255))
+    last_name = db.Column(db.String(255))
+    email = db.Column(db.String(255), index=True, unique=True)
     password = db.Column(db.String(60)) 
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.current_timestamp())

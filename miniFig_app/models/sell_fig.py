@@ -13,7 +13,7 @@ class Sell_fig(db.Model):
     figure_id = db.Column(db.String(255), db.ForeignKey('figures.id'))
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.current_timestamp())
-    purchased_item = relationship("Purchased_items")
+    purchased_item = relationship("Purchased_item")
 
     def __repr__(self):
         return '<Sell_fig {}>'.format(self.__dict__)
