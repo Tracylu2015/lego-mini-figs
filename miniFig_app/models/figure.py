@@ -8,7 +8,7 @@ class Figure(db.Model):
     __tablename__ = "figures"
 
     id = db.Column(db.String(255), primary_key=True)
-    name = db.Column(db.String(255), index=True, unique=True)
+    name = db.Column(db.String(255))
     year = db.Column(db.Integer)
     theme = db.Column(db.String(255))
     img_url=db.Column(db.String(255))
