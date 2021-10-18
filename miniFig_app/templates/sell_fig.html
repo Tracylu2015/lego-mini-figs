@@ -28,6 +28,7 @@
         <span style="color: red">[{{ error }}]</span>
         {% endfor %}
     </p>
+    {#
     <p>
         {{ form.fig_theme.label }}<br />
         {{ form.fig_theme(size=32) }}<br />
@@ -37,11 +38,12 @@
     </p>
     <p>
         {{ form.fig_year.label }}<br />
-        {{ form.fig_year(size=32) }}<br />
+        {{ form.fig_year(size=1) }}<br />
         {% for error in form.fig_year.errors %}
         <span style="color: red">[{{ error }}]</span>
         {% endfor %}
     </p>
+    #}
     <p>
         {{ form.fig_quantity.label }}<br />
         {{ form.fig_quantity(size=16) }}<br />
