@@ -50,7 +50,7 @@ export DATABASE_URL=mysql+pymysql://root:rootroot@localhost:3306/minifigs
 ```
 flask db init
 flask db migrate
-# Only run after db schema changes
+# Only run after db schema changes, no need to drop tables in database!
 flask db upgrade
 python import_db.py
 ```
