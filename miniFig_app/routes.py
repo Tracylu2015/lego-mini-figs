@@ -51,6 +51,8 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
+@app.route('/user_account')
+def user_profile():
+    return render_template('user_profile.html')
 
 
