@@ -12,7 +12,7 @@ engine = create_engine('mysql+pymysql://root:rootroot@localhost:3306/minifigs')
 counter = 0
 # create session and add objects
 with Session(engine) as session:
-    dataset_path = os.getenv('DATASET_PATH', '/Users/qianlu/workspace/lego-sets/datasets/minifigure')
+    dataset_path = os.getenv('DATASET_PATH', '/Users/wuwenfeng/Documents/GitHub/lego-set/datasets/minifigure')
     for filename in os.listdir(dataset_path):
         file_path = os.path.join(dataset_path, filename)
         with open(file_path) as f:

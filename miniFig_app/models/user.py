@@ -2,13 +2,15 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 from miniFig_app import db
 from sqlalchemy.orm import relationship
+from miniFig_app import login
+from flask_login import UserMixin
 
-class User(db.Model):
+
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(255))
-    last_name = db.Column(db.String(255))
+    username = db.Column(db.String(255))
     email = db.Column(db.String(255), index=True, unique=True)
     password = db.Column(db.String(60)) 
     created_at = db.Column(db.DateTime, server_default=func.now())
@@ -19,3 +21,9 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.__dict__)
+        
+    @login.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
+

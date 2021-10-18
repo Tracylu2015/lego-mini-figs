@@ -2,9 +2,13 @@ from flask import Flask
 from miniFig_app.config.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
+login = LoginManager(app)
+login.login_view = 'login'
 
 db = SQLAlchemy()
 db.init_app(app)
@@ -23,3 +27,5 @@ from miniFig_app.models.sell_fig import Sell_fig # import model class so it can 
 # Create database table
 with app.app_context():
     db.create_all()
+
+from miniFig_app import routes
