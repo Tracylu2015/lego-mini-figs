@@ -7,14 +7,13 @@ from miniFig_app.models.user import User
 
 bcrypt = Bcrypt(app)
 
-@app.route('/')
-@app.route('/index')
-@login_required
-def index():
-    return render_template('index.html')
+# @app.route('/add_to_cart')
+# @login_required
+# def index():
+#     return render_template('index.html')
 
 @app.route('/')
-def mainroute():
+def index():
     return render_template('index.html')
 
 
@@ -44,12 +43,14 @@ def register():
         db.session.commit()
         login_user(user)
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
 
 
