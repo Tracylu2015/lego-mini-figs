@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 from miniFig_app import login
 from flask_login import UserMixin
 
-
 class User(UserMixin, db.Model):
     __tablename__ = "users"
 
@@ -26,4 +25,5 @@ class User(UserMixin, db.Model):
     def load_user(id):
         return User.query.get(int(id))
 
-
+    def set_password(self, password):
+        self.password = password

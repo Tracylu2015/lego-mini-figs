@@ -21,3 +21,4 @@ SQLAlchemy==1.4.25
 Werkzeug==2.0.2
 WTForms==2.3.3
 zipp==3.6.0
+bcrypt==3.2.0

@@ -26,6 +26,9 @@ from miniFig_app.models.sell_fig import Sell_fig # import model class so it can 
 
 # Create database table
 with app.app_context():
+    engine = db.get_engine()
+    with engine.connect() as conn:
+        conn.execute(f"CREATE DATABASE IF NOT EXISTS minifigs")
     db.create_all()
 
 from miniFig_app import routes
