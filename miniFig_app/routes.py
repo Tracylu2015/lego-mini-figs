@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect,url_for
 from miniFig_app import app, db
-from miniFig_app.form import LoginForm, RegistrationForm
+from miniFig_app.form import LoginForm, RegistrationForm, PostSellFigForm
 from flask_login import current_user,login_user,logout_user,login_required
 from flask_bcrypt import Bcrypt
 from miniFig_app.models.user import User 
@@ -55,4 +55,9 @@ def logout():
 def user_profile():
     return render_template('user_profile.html')
 
+@app.route('/sell_fig', methods=['GET', 'POST'])
+def sell_fig():
+    form = PostSellFigForm()
+    #need to add validator
+    return render_template('sell_fig.html', title='Post to Sell', form = form)
 

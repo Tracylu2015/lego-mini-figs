@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, DecimalField
+from wtforms.fields.simple import FileField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from miniFig_app import app
 from miniFig_app import User
@@ -34,4 +35,12 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
-# class PostSellFigForm(FlaskForm):
+class PostSellFigForm(FlaskForm):
+    image = FileField('Upload Image', validators=[DataRequired()])
+    fig_id= StringField('Minifig ID', validators=[DataRequired()])
+    fig_name = StringField('Minifig Name', validators=[DataRequired()])
+    fig_theme = StringField('Minifig Theme', validators=[DataRequired()])
+    fig_year = IntegerField('Minifig Year', validators=[DataRequired()])
+    fig_quantity = IntegerField('Minifig Quantities', validators=[DataRequired()])
+    fig_price = DecimalField('Set Your Price', validators=[DataRequired()])
+    submit = SubmitField('Post to Sell')
