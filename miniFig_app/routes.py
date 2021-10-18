@@ -1,9 +1,11 @@
-from flask import render_template, flash, redirect,url_for
+from flask import render_template, flash, redirect,url_for, request
 from miniFig_app import app, db
-from miniFig_app.form import LoginForm, RegistrationForm, PostSellFigForm
+from miniFig_app.form import LoginForm, RegistrationForm, PostSellFigForm, UserUpdateForm
 from flask_login import current_user,login_user,logout_user,login_required
 from flask_bcrypt import Bcrypt
 from miniFig_app.models.user import User 
+from miniFig_app.models.figure import Figure
+from miniFig_app.models.sell_fig import Sell_fig
 
 bcrypt = Bcrypt(app)
 
@@ -39,7 +41,7 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(bcrypt.generate_password_hash(form.password.data))
-        db.session.add(user)
+        db.session.add(user) #MySQL insert query
         db.session.commit()
         login_user(user)
         flash('Congratulations, you are now a registered user!')
@@ -53,11 +55,60 @@ def logout():
 
 @app.route('/user_account')
 def user_profile():
-    return render_template('user_profile.html')
+    user_id = current_user.get_id()
+    sell_figs = Sell_fig.display_all_by_user_id(user_id)
+    print(sell_figs)
+    return render_template('user_profile.html', sell_figs = sell_figs)
 
 @app.route('/sell_fig', methods=['GET', 'POST'])
 def sell_fig():
     form = PostSellFigForm()
-    #need to add validator
+    if form.validate_on_submit():
+        sell_fig = Sell_fig(quantity = form.fig_quantity.data, sell_price=form.fig_price.data,
+        figure_id = form.fig_id.data, user_id = int(current_user.get_id()))
+        db.session.add(sell_fig) 
+        db.session.commit()
+        flash('Congratulations, you post an item for sell!')
+        return redirect(url_for('user_profile'))
     return render_template('sell_fig.html', title='Post to Sell', form = form)
+
+
+@app.route('/browse_fig')
+def browse_all():
+# query data and pass to the html
+    data = Figure.browse_all()
+    return render_template('browse_all.html', data=data)
+
+@app.route('/browse_fig/year/<year>')
+def browse_all_by_year(year=2021):
+    data = Figure.browse_all_by_year(year)
+    return render_template('year.html', data=data)
+
+@app.route('/browse_fig/theme/<theme>')
+def browse_all_by_theme(theme="General"):
+    themes = Figure.browse_all_by_theme(theme)
+    all_themes = ["General","Basic Set", "Disney Princess","Duplo","Super Heros", "City", "Star Wars", "Harry Potter"]
+    return render_template('theme.html', themes=themes, all_themes =all_themes)
+
+
+
+# @app.route('/user_account/edit/<id>')
+# def update_info(id):
+    
+#     return render_template('user_profile.html')
+
+@app.route('/user_account/edit', methods=['GET', 'POST'])
+def edit_user():
+    form = UserUpdateForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        User.update_info(form, current_user.get_id())
+        flash('Your changes have been saved.')
+        return redirect(url_for('user_profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('user_edit.html', title='Edit Information',
+                           form=form)
 

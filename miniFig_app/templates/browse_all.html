@@ -1,0 +1,6 @@
+{% extends "base.html" %} {% block title %}Browse All MiniFigs{% endblock %}
+{%block body %} Display figs {% for fig in data %} <div>
+    <img src="{{fig.img_url}}" alt="fig image">
+    
+    {{fig.id}}
+{{fig.name}} {{fig.year}} {{fig.theme}} </div>{% endfor %} {% endblock %}

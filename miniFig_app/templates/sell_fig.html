@@ -7,13 +7,13 @@
 <h1>Sell Your MiniFigs</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    <p>
+   {# <p>
         {{ form.image.label }}<br />
         {{ form.image(size=96) }}<br />
         {% for error in form.image.errors %}
         <span style="color: red">[{{ error }}]</span>
         {% endfor %}
-    </p>
+    </p> #}
     <p>
         {{ form.fig_id.label }}<br />
         {{ form.fig_id(size=32) }}<br />

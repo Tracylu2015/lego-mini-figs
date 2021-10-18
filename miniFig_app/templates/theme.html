@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theme</title>
-</head>
-<body>
-    {% include 'nav_module.html' %}
+{% extends "base.html" %}
+
+{% block body %}
     <div class="search-bar">
         <input type="text" placeholder="Search..">
         <button>Find</button>
@@ -15,19 +8,18 @@
     <div class="sort-by-theme">
             <label for="sort_by_theme">Sort by theme</label>
             <select name="sort_by_theme" id="sort_by_theme">
-                <option value="theme-1">theme-1</option>
-                <option value="theme-2">theme-2</option>
-                <option value="theme-3">theme-3</option>
+                {% for theme in all_themes %}
+                <option value="{{theme}}">{{theme}}</option>
+                {% endfor %}
             </select>
     </div>
     <div class="show-fig">
-        <div>
-            <img src="IMG69.png" alt="img-icon">
-        </div>
+        {% for theme in themes %}
         <div class="fig-detail">
-            <p>MiniFig Number: {{MiniFig Number}}</p>
-            <p>MiniFig Name: {{MiniFig Name}}</p>
+            <img src="{{theme.img_url}}" alt="fig image" width="220" height="260">
+            <p>MiniFig Id: {{theme.id}}</p>
+            <p>MiniFig Name: {{theme.name}}</p>
         </div>
+        {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}

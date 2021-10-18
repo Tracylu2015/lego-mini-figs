@@ -4,6 +4,7 @@ from wtforms import *
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from miniFig_app import app
 from miniFig_app import User
+from miniFig_app import Figure
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
@@ -29,13 +30,9 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different email address.')
 
 class PostSellFigForm(FlaskForm):
-    image = FileField('Upload Image', validators=[FileRequired()])
+    # image = FileField('Upload Image', validators=[FileRequired()])
     
     fig_id= StringField('Minifig ID', validators=[DataRequired()])
     fig_name = StringField('Minifig Name', validators=[DataRequired()])
@@ -48,3 +45,22 @@ class PostSellFigForm(FlaskForm):
     fig_quantity = IntegerField('Minifig Quantities', validators=[DataRequired()])
     fig_price = DecimalField('Set Your Price', validators=[DataRequired()])
     submit = SubmitField('Post to Sell')
+
+    def validate_fig_id(self, fig_id):
+        fig = Figure.query.filter_by(id=fig_id.data).first()
+        if not fig:
+            raise ValidationError('Minifigure Id is not exist, please check and input again!')
+
+class UserUpdateForm(FlaskForm):
+    username = StringField('Username')
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    # password = PasswordField('Password', validators=[DataRequired()])
+    # password2 = PasswordField(
+    #     'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Update')
+
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')

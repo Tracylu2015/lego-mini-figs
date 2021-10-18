@@ -27,3 +27,10 @@ class User(UserMixin, db.Model):
 
     def set_password(self, password):
         self.password = password
+
+    @classmethod
+    def update_info(cls, form, user_id):
+        User.query.filter(User.id==int(user_id)).update(
+            dict(username=form.username.data, email=form.email.data)
+        )
+        db.session.commit()

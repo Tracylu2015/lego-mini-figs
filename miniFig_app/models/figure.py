@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship
-
+from sqlalchemy.orm import relationship, sessionmaker
+from sqlalchemy import Column, String, Integer, create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from miniFig_app import db
 
@@ -18,3 +19,22 @@ class Figure(db.Model):
 
     def __repr__(self):
         return '<Figure {}>'.format(self.__dict__)
+
+
+    @classmethod
+    def browse_all(cls):
+        browse_figs = Figure.query.limit(100).all() #select * 
+        return browse_figs
+    # session_browse.close()
+
+    @classmethod
+    def browse_all_by_year(cls,year):
+        browse_figs = Figure.query.filter(Figure.year == year).limit(30).all()
+        print(browse_figs)#select * by year
+        return browse_figs
+
+    @classmethod
+    def browse_all_by_theme(cls,theme):
+        browse_figs = Figure.query.filter(Figure.theme == theme).limit(30).all()
+        print(browse_figs)#select * by theme
+        return browse_figs
