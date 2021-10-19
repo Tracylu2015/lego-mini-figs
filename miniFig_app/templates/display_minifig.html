@@ -14,22 +14,49 @@
             <!-- <li>Appears In:</li> -->
         </ul>
     </div>
+    <div class="sort-by-price">
+        <label for="sort_by_price">Sort by price</label>
+        <select name="sort_by_price" id="sort_by_price">
+            <option>Item Post</option>  
+            <option>Price Low to High</option>
+            <option>Price High to Low</option>  
+        </select>
+    </div>
+
+    <h6>Blind Box</h6>
+    {% for box in blindbox %}
+    <h6>Quantity: {{box.quantity}}</h6>
+    <h6>Price: {{box.sell_price}}</h6>
+    {% endfor %}
+        <form action="/add_to_cart/{{box.id}}" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.fig_quantity.label }}<br />
+            {{ form.fig_quantity(size=16) }}<br />
+            {% for error in form.fig_quantity.errors %}
+            <span style="color: red">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <button>Add to Cart</button>
+        </form>
+
     {% for seller in sell_info %}
     {% if sell_info %}
     <h6>Sell User Id: {{seller.user_id}}</h6>
     <h6>Quantity: {{seller.quantity}}</h6>
     <h6>Price: {{seller.sell_price}}</h6>
-    {# <form action="" method="post">
+        <form action="/add_to_cart/{{seller.id}}" method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.purchase_quantity.label }}<br />
-            {{ form.purchase_quantity(size=16) }}<br />
-            {% for error in form.purchase_quantity.errors %}
+            {{ form.fig_quantity.label }}<br />
+            {{ form.fig_quantity(size=16) }}<br />
+            {% for error in form.fig_quantity.errors %}
             <span style="color: red">[{{ error }}]</span>
             {% endfor %}
         </p>
-        </form> #}
-    <a href="/#">Add to Shopping Cart</a>
+        <button>Add to Cart</button>
+        </form> 
+
     {% else %}
     <h6>This Item is not no sale</h6>
     {% endif %}
