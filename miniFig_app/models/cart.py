@@ -36,8 +36,8 @@ class Cart(db.Model):
 
 
     @classmethod
-    def pay_all_items(cls,cart): # cart html show all the items added to cart and check whether to pay
-        cart_items = Cart.query.filter(Cart.id == cart).all()
-        print(cart_items)
-        return cart_items
+    def get_all_items(cls, user_id): # cart html show all the items added to cart and check whether to pay
+        items = Cart.query.filter(Cart.user_id == user_id).all()
+        print(items)
+        return items
     

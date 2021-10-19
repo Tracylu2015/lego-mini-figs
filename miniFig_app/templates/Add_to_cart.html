@@ -5,10 +5,10 @@
 {% block body%}
 {% for item in cart_items %}
 
-<p><img src="{{item.figure.img_url}}" alt="fig image"></p>
-<p>MiniFig Unit Price: {{item.sell_fig.price}}</p>
+<p><img src="{{item.sell_fig.figure.img_url}}" alt="fig image"></p>
+<p>MiniFig Unit Price: {{item.sell_fig.sell_price}}</p>
 <p>MiniFig Quantity Added: {{item.fig_quantity}}</p>
-<p>Total Price : $ {{item.sell_fig.price}} * {{item.fig_quantity}} </p>
+<p>Total Price : $ {{item.sell_fig.sell_price * item.fig_quantity}} </p>
 <!-- <p>Grand Total: $</p> -->
 {% endfor %}
 
