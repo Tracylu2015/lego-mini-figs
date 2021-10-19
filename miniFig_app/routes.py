@@ -46,7 +46,6 @@ def register():
         db.session.add(user)  # MySQL insert query
         db.session.commit()
         login_user(user)
-        flash('Congratulations, you are now a registered user!')
         return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
 
@@ -68,11 +67,9 @@ def user_profile():
 def sell_fig():
     form = PostSellFigForm()
     if form.validate_on_submit():
-        sell_fig = Sell_fig(quantity=form.fig_quantity.data, sell_price=form.fig_price.data,
-                            figure_id=form.fig_id.data, user_id=int(current_user.get_id()))
+        sell_fig = Sell_fig(quantity=form.fig_quantity.data, sell_price=form.fig_price.data,figure_id=form.fig_id.data, user_id=int(current_user.get_id()))
         db.session.add(sell_fig)
         db.session.commit()
-        flash('Congratulations, you post an item for sell!')
         return redirect(url_for('user_profile'))
     return render_template('sell_fig.html', title='Post to Sell', form=form)
 
@@ -93,8 +90,7 @@ def browse_all_by_year(year=2021):
 @app.route('/browse_fig/theme/<theme>')
 def browse_all_by_theme(theme="General"):
     themes = Figure.browse_all_by_theme(theme)
-    all_themes = ["General", "Basic Set", "Disney Princess",
-                  "Duplo", "Super Heros", "City", "Star Wars", "Harry Potter"]
+    all_themes = ["General", "Basic Set", "Disney Princess","Duplo", "Super Heros", "City", "Star Wars", "Harry Potter"]
     return render_template('theme.html', themes=themes, all_themes=all_themes)
 
 # @app.route('/user_account/edit/<id>')
@@ -109,7 +105,6 @@ def edit_user():
         current_user.username = form.username.data
         current_user.email = form.email.data
         User.update_info(form, current_user.get_id())
-        flash('Your changes have been saved.')
         return redirect(url_for('user_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -126,7 +121,6 @@ def edit_sell_fig(id):
     form = SellItemUpdateForm()
     if form.validate_on_submit():
         Sell_fig.edit_item(form, id)
-        flash('Your changes have been saved.')
         return redirect(url_for('user_profile'))
     elif request.method == 'GET':
         item = Sell_fig.get_item(id)
