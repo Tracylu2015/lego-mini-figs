@@ -15,19 +15,25 @@ class Cart(db.Model):
 
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.current_timestamp())
-    sell_fig=relationship("Sell_fig", back_populates="cart")
+    sell_fig = relationship("Sell_fig", back_populates="cart")
 
     def __repr__(self):
         return '<Cart {}>'.format(self.__dict__)
 
 
     @classmethod
-    def add_to_cart(cls,form, user_id, figure_id): # when click add item, data should be inserted into cart table
-        cart = Cart()
-        cart.fig_quantity = form.fig_quantity.data
-        cart.user_id = user_id
-        cart.sell_fig_id = figure_id
-        db.session.add(cart)
+    def add_to_cart(cls,form, user_id, sell_fig_id): # when click add item, data should be inserted into cart table
+        cart = Cart.query.filter(Cart.user_id == user_id, Cart.sell_fig_id == sell_fig_id).first()
+        if not cart:
+            cart = Cart()
+            cart.fig_quantity = form.fig_quantity.data
+            cart.user_id = user_id
+            cart.sell_fig_id = sell_fig_id
+            db.session.add(cart)
+        else:
+            cart.fig_quantity += form.fig_quantity.data
+        db.session.commit()
+
 
     @classmethod
     def pay_all_items(cls,cart): # cart html show all the items added to cart and check whether to pay

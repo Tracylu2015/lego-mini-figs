@@ -27,7 +27,7 @@
     {% for box in blindbox %}
     <h6>Quantity: {{box.quantity}}</h6>
     <h6>Price: {{box.sell_price}}</h6>
-        <form action="/add_to_cart/{{box.id}}" method="post">
+        <form action="/add_to_cart/{{box.figure_id}}/{{box.id}}" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.fig_quantity.label }}<br />
@@ -45,7 +45,7 @@
     <h6>Sell User Id: {{seller.user_id}}</h6>
     <h6>Quantity: {{seller.quantity}}</h6>
     <h6>Price: {{seller.sell_price}}</h6>
-        <form action="/add_to_cart/{{seller.figure_id}}" method="post">
+        <form action="/add_to_cart/{{seller.figure_id}}/{{seller.id}}" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.fig_quantity.label }}<br />
