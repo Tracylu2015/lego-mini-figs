@@ -38,3 +38,9 @@ class Figure(db.Model):
         browse_figs = Figure.query.filter(Figure.theme == theme).limit(30).all()
         print(browse_figs)#select * by theme
         return browse_figs
+
+    @classmethod
+    def get_one_by_fig_id(cls,id):
+        return Figure.query.filter(Figure.id == id).one()
+
+

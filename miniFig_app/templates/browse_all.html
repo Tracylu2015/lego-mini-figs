@@ -1,6 +1,36 @@
-{% extends "base.html" %} {% block title %}Browse All MiniFigs{% endblock %}
-{%block body %} Display figs {% for fig in data %} <div>
+{% extends "base.html" %} 
+
+{% block title %}Browse All MiniFigs{% endblock %}
+{%block body %} 
+<div class="search-bar">
+    <input type="text" placeholder="Search by Name or Id">
+    <button>Find</button>
+</div>
+<div class="sort-by">
+        <label for="sort_by">Sort by</label>
+        <select name="sort_by" id="sort_by">
+            <option>On Sale</option>
+            <option>Most Popular</option>
+            <option>Best Seller</option>
+            <option>Reviews</option>
+        </select>
+</div>
+
+{% for fig in data %} 
+
+<a href="/display_minifig/{{fig.id}}">
+<div>
     <img src="{{fig.img_url}}" alt="fig image" width="160" height="220">
     
-    {{fig.id}}
-{{fig.name}} {{fig.year}} {{fig.theme}} </div>{% endfor %} {% endblock %}
+{{fig.id}}
+{{fig.name}} 
+{{fig.year}} 
+{{fig.theme}}
+ 
+</div>
+</a>
+ 
+ {% endfor %} 
+ 
+ 
+ {% endblock %}

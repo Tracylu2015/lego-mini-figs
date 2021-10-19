@@ -5,6 +5,7 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from miniFig_app import app
 from miniFig_app import User
 from miniFig_app import Figure
+from miniFig_app import Sell_fig
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
@@ -50,6 +51,16 @@ class PostSellFigForm(FlaskForm):
         fig = Figure.query.filter_by(id=fig_id.data).first()
         if not fig:
             raise ValidationError('Minifigure Id is not exist, please check and input again!')
+    
+
+    def validate_fig_quantity(self, fig_quantity):
+        if fig_quantity.data <= 0 :
+            raise ValidationError('Quantity must be greater than 0')
+
+    
+    def validate_fig_price(self, fig_price):
+        if fig_price.data<= 0:
+            raise ValidationError('Price must be greater than 0')
 
 class UserUpdateForm(FlaskForm):
     username = StringField('Username')
@@ -69,3 +80,12 @@ class SellItemUpdateForm(FlaskForm):
     quantity = IntegerField('Quantity', validators=[DataRequired()])
     sell_price = DecimalField('Price', validators=[DataRequired()])
     submit = SubmitField('Update')
+
+    def validate_quantity(self, quantity):
+        if quantity.data <= 0 :
+            raise ValidationError('Quantity must be greater than 0')
+
+    
+    def validate_sell_price(self, sell_price):
+        if sell_price.data<= 0:
+            raise ValidationError('Price must be greater than 0')

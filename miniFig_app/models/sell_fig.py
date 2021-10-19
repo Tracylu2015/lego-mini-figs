@@ -41,5 +41,10 @@ class Sell_fig(db.Model):
     @classmethod
     def get_item(cls,id):
         return Sell_fig.query.filter(Sell_fig.id == id).one()
+
+    @classmethod
+    def get_all_sellInfo_by_fig_id(cls,id):
+        sellInfo = Sell_fig.query.filter(Sell_fig.figure_id == id).all()
+        return sellInfo 
         
     

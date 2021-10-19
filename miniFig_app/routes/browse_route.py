@@ -1,5 +1,6 @@
 from flask import render_template
 from miniFig_app import app
+from miniFig_app.models.sell_fig import Sell_fig
 from miniFig_app.models.figure import Figure
 
 all_themes = [
@@ -24,3 +25,10 @@ def browse_all_by_year(year=2021):
 def browse_all_by_theme(theme="General"):
     themes = Figure.browse_all_by_theme(theme)
     return render_template('theme.html', themes=themes, all_themes=all_themes)
+
+
+@app.route("/display_minifig/<id>")
+def get_one_detailed_fig(id):
+    detailed_fig = Figure.get_one_by_fig_id(id)
+    sellInfo= Sell_fig.get_all_sellInfo_by_fig_id(id)
+    return render_template('display_minifig.html', detailed_fig= detailed_fig, sellInfo=sellInfo)
