@@ -34,3 +34,4 @@ def edit_sell_fig(id):
         form.sell_price.data = item.sell_price
         form.quantity.data = item.quantity
     return render_template('sell_edit.html', title='Edit Sell Item', form=form)
+

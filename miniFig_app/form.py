@@ -89,3 +89,11 @@ class SellItemUpdateForm(FlaskForm):
     def validate_sell_price(self, sell_price):
         if sell_price.data<= 0:
             raise ValidationError('Price must be greater than 0')
+
+class AddToCartForm(FlaskForm):
+    fig_quantity = IntegerField('Purchase Quantity', validators=[DataRequired()])
+    submit = SubmitField('Add to cart')
+
+    # def validate_sell_price(self, fig_quantity, quantity):
+    #     if fig_quantity.data > quantity: #quantity???
+    #         raise ValidationError('Purchase Quantity must less than Inventory Quantity')

@@ -46,5 +46,10 @@ class Sell_fig(db.Model):
     def get_all_sell_info_by_fig_id(cls,id):
         sell_info = Sell_fig.query.filter(Sell_fig.figure_id == id).all()
         return sell_info 
+
+    @classmethod
+    def get_blindbox(cls):
+        blindbox = Sell_fig.query.filter(Sell_fig.figure_id == "BLINDBO").all()
+        return blindbox
         
     

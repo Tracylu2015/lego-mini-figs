@@ -2,6 +2,7 @@ from flask import render_template
 from miniFig_app import app
 from miniFig_app.models.sell_fig import Sell_fig
 from miniFig_app.models.figure import Figure
+from miniFig_app.form import AddToCartForm
 
 all_themes = [
     "General", "Basic Set", "Disney Princess", "Duplo", "Super Heros", "City", "Star Wars", "Harry Potter"
@@ -29,6 +30,8 @@ def browse_all_by_theme(theme="General"):
 
 @app.route("/display_minifig/<id>")
 def get_one_detailed_fig(id):
+    form = AddToCartForm()
     detailed_fig = Figure.get_one_by_fig_id(id)
     sell_info= Sell_fig.get_all_sell_info_by_fig_id(id)
-    return render_template('display_minifig.html', detailed_fig= detailed_fig, sell_info=sell_info)
+    blindbox= Sell_fig.get_blindbox()
+    return render_template('display_minifig.html', detailed_fig= detailed_fig, sell_info=sell_info, form=form, blindbox=blindbox)
