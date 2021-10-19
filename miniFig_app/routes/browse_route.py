@@ -30,5 +30,5 @@ def browse_all_by_theme(theme="General"):
 @app.route("/display_minifig/<id>")
 def get_one_detailed_fig(id):
     detailed_fig = Figure.get_one_by_fig_id(id)
-    sellInfo= Sell_fig.get_all_sellInfo_by_fig_id(id)
-    return render_template('display_minifig.html', detailed_fig= detailed_fig, sellInfo=sellInfo)
+    sell_info= Sell_fig.get_all_sell_info_by_fig_id(id)
+    return render_template('display_minifig.html', detailed_fig= detailed_fig, sell_info=sell_info)
