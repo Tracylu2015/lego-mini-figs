@@ -64,3 +64,8 @@ class UserUpdateForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+class SellItemUpdateForm(FlaskForm):
+    quantity = IntegerField('Quantity', validators=[DataRequired()])
+    sell_price = DecimalField('Price', validators=[DataRequired()])
+    submit = SubmitField('Update')

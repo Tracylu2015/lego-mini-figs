@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect,url_for, request
 from miniFig_app import app, db
-from miniFig_app.form import LoginForm, RegistrationForm, PostSellFigForm, UserUpdateForm
+from miniFig_app.form import LoginForm, RegistrationForm, PostSellFigForm, UserUpdateForm, SellItemUpdateForm
 from flask_login import current_user,login_user,logout_user,login_required
 from flask_bcrypt import Bcrypt
 from miniFig_app.models.user import User 
@@ -57,7 +57,6 @@ def logout():
 def user_profile():
     user_id = current_user.get_id()
     sell_figs = Sell_fig.display_all_by_user_id(user_id)
-    print(sell_figs)
     return render_template('user_profile.html', sell_figs = sell_figs)
 
 @app.route('/sell_fig', methods=['GET', 'POST'])
@@ -112,3 +111,21 @@ def edit_user():
     return render_template('user_edit.html', title='Edit Information',
                            form=form)
 
+
+@app.route('/sell_fig/delete/<id>')
+def delete_sell_fig(id):
+    Sell_fig.delete_item(id)
+    return redirect(url_for('user_profile'))
+
+@app.route('/sell_fig/edit/<id>',methods=['GET', 'POST'])
+def edit_sell_fig(id):
+    form = SellItemUpdateForm()
+    if  form.validate_on_submit():
+        Sell_fig.edit_item(form, id)
+        flash('Your changes have been saved.')
+        return redirect(url_for('user_profile'))
+    elif request.method == 'GET':
+        form.sell_price.data = Sell_fig.sell_price
+        form.quantity.data = Sell_fig.quantity
+    return render_template('sell_edit.html', title='Edit Sell Item',
+                           form=form)

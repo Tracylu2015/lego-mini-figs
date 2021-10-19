@@ -25,3 +25,21 @@ class Sell_fig(db.Model):
     def display_all_by_user_id(cls,user_id):
         display_sell_figs = Sell_fig.query.filter(Sell_fig.user_id == user_id).all()
         return display_sell_figs
+
+    @classmethod
+    def delete_item(cls,id):
+        Sell_fig.query.filter(Sell_fig.id == id).delete()
+        db.session.commit()
+
+    @classmethod
+    def edit_item(cls, form, id):
+        Sell_fig.query.filter(Sell_fig.id == id).update(
+            dict(quantity=form.quantity.data, sell_price=form.sell_price.data)
+        )
+        db.session.commit()
+
+    @classmethod
+    def get_item(cls,id):
+        return Sell_fig.query.filter(Sell_fig.id == id).one()
+        
+    

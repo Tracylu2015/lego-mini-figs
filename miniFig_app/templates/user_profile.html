@@ -7,6 +7,7 @@
     <a href="/user_account/edit">Edit Account Info</a>
     <a href="/user_account/view_purchased">Purchase History</a>
     <a href="/user_account/view_sold">Sold History</a>
+    <a href="/sell_fig">Add Item to Sell</a>
 </div>
 <div class="main_content">
     <h3>Items on sale</h3>
@@ -14,14 +15,14 @@
         {%for item in sell_figs %}
        
         <li>MiniFig Image: <img src="{{item.figure.img_url}}" alt="fig image" width="100" height="100"></li>
-        <li>MiniFig Id:{{item.figure_id}}</li>
-        <li>MiniFig Name:{{item.figure.name}}</li>
-        <li>MiniFig Quantity:{{item.quantity}}</li>
-        <li>MiniFig Price:${{item.sell_price}}</li>
+        <li>MiniFig Id: {{item.figure_id}}</li>
+        <li>MiniFig Name: {{item.figure.name}}</li>
+        <li>MiniFig Quantity: {{item.quantity}}</li>
+        <li>MiniFig Price: ${{item.sell_price}}</li>
+        <li>MiniFig Sell Posted At: {{item.created_at}}</li>
         <li>
-            <a href="">View Item</a>
-            <a href="">Add to Sell</a>
-            <a href="">Remove from List</a>
+            <a href="/sell_fig/edit/{{item.id}}">Edit Item</a>
+            <a href="/sell_fig/delete/{{item.id}}">Remove from List</a>
         </li>
         {% endfor %}
     </ul>
