@@ -31,4 +31,7 @@ with app.app_context():
         conn.execute(f"CREATE DATABASE IF NOT EXISTS minifigs")
     db.create_all()
 
-from miniFig_app import routes
+from miniFig_app.routes import index_route # import index_route
+from miniFig_app.routes import user_route # import user_route
+from miniFig_app.routes import browse_route # import user_route
+from miniFig_app.routes import sell_fig_route # import sell_fig_route
