@@ -17,6 +17,7 @@ class Sell_fig(db.Model):
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.current_timestamp())
     purchased_item = relationship("Purchased_item")
     figure = relationship("Figure", back_populates="sell_fig")
+    cart = relationship("Cart")
 
     def __repr__(self):
         return '<Sell_fig {}>'.format(self.__dict__)
@@ -49,7 +50,7 @@ class Sell_fig(db.Model):
 
     @classmethod
     def get_blindbox(cls):
-        blindbox = Sell_fig.query.filter(Sell_fig.figure_id == "BLINDBO").all()
+        blindbox = Sell_fig.query.filter(Sell_fig.figure_id == "BLINDBOX").all()
         return blindbox
         
     
