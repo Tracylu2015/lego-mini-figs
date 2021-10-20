@@ -15,3 +15,7 @@ def add_to_cart(figure_id):
         return redirect(f'/display_minifig/{figure_id}')
     cart_items = Cart.get_all_items(user_id)
     return render_template("add_to_cart.html",form=form,cart_items=cart_items)
+
+@app.route('/view_cart')
+def view_cart():
+    return render_template("add_to_cart.html")

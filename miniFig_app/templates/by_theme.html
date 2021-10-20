@@ -1,7 +1,22 @@
 {% for theme in data %}
 <div class="fig-detail">
-    <img src="{{theme.img_url}}" alt="fig image" width="220" height="260">
-    <p>MiniFig Id: {{theme.id}}</p>
-    <p>MiniFig Name: {{theme.name}}</p>
+
+<div class="card mb-3 on-sale" style="max-width: 540px;">
+    <a href="/display_minifig/{{theme.id}}" style="text-decoration: none; color: black;">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="{{theme.img_url}}" class="card-img" alt="minifigs.img">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" style="color: black;">MiniFig Id: {{theme.id}}</h5>
+                <p class="card-text">    
+                    <p>MiniFig Theme: {{theme.theme}}</p>
+                    <p>MiniFig Name: {{theme.name}}</p>
+            </div>
+        </div>
+    </div>
+    </a>
+</div>
 </div>
 {% endfor %}

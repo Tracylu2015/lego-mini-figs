@@ -1,7 +1,21 @@
 {% for year in data %}
 <div class="fig-detail">
-    <img src="{{year.img_url}}" alt="fig image" width="220" height="260">
-    <p>MiniFig Id: {{year.id}}</p>
-    <p>MiniFig Name: {{year.name}}</p>
-</div>
+    <div class="card mb-3 on-sale" style="max-width: 540px;">
+        <a href="/display_minifig/{{year.id}}" style="text-decoration: none; color: black;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{year.img_url}}" class="card-img" alt="minifigs.img">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">MiniFig Id: {{year.id}}</h5>
+                    <p class="card-text">    
+                        <p>MiniFig year: {{year.year}}</p>
+                        <p>MiniFig Name: {{year.name}}</p>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+    </div>
 {% endfor %}
