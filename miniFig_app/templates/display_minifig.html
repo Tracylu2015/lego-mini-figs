@@ -3,17 +3,24 @@
 {% block title %}Browse All MiniFigs{% endblock %}
 {%block body %}
 
-    <div class="col">
-        <h3>MiniFig Details</h3>
-        <ul>
-            <li> <img src="{{detailed_fig.img_url}}" alt="fig image" width="300" height="200"> </li>
-            <li>MiniFig ID: {{detailed_fig.id}}</li>
-            <li>MiniFig Name:{{detailed_fig.name}}</li>
-            <li>MiniFig Theme:{{detailed_fig.theme}}</li>
-            <li>Year Released:{{detailed_fig.year}}</li>
-            <!-- <li>Appears In:</li> -->
-        </ul>
+    <h3>MiniFig Details</h3>
+    <div class="card mb-3 on-sale" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{detailed_fig.img_url}}" alt="fig image" width="180" height="220"> 
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">MiniFig ID: {{detailed_fig.id}}</h5>
+                    <p class="card-text">    
+                    <p>MiniFig Name:{{detailed_fig.name}}</p>
+                    <p>MiniFig Theme:{{detailed_fig.theme}}</p>
+                    <p>Year Released:{{detailed_fig.year}}</p>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="sort-by-price">
         <label for="sort_by_price">Sort by price</label>
         <select name="sort_by_price" id="sort_by_price">

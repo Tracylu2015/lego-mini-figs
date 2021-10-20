@@ -1,10 +1,29 @@
 {% for sale in data %}
-<div class="on-sale">
+<div class="card mb-3 on-sale" style="max-width: 540px;">
+    <a href="/display_minifig/{{sale.id}}" style="text-decoration: none; color: black;">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="{{sale.img_url}}" class="card-img" alt="minifigs.img">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" style="color: black;">MiniFig Id: {{sale.id}}</h5>
+                <p class="card-text">    
+                <p>MiniFig Name: {{sale.name}}</p>
+                <p>MiniFig Year: {{sale.year}}</p>
+                <p>MiniFig Theme: {{sale.theme}}</p>
+            </div>
+        </div>
+    </div>
+    </a>
+</div>
+
+{#<div class="on-sale">
     <a href="/display_minifig/{{sale.id}}"></a>
     <img src="{{sale.img_url}}" alt="fig image" width="220" height="260">
     <p>MiniFig Id: {{sale.id}}</p>
     <p>MiniFig Name: {{sale.name}}</p>
     <p>MiniFig Year: {{sale.year}}</p>
     <p>MiniFig Theme: {{sale.theme}}</p>
-</div>
+</div>#}
 {% endfor %}
