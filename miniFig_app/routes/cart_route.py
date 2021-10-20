@@ -17,4 +17,4 @@ def add_to_cart(figure_id):
         Cart.add_to_cart(form, user_id, sell_fig_id)
         return redirect(f'/display_minifig/{figure_id}')
     cart_items = Cart.get_all_items(user_id)
-    return render_template("Add_to_cart.html",form=form,cart_items=cart_items)
+    return render_template("add_to_cart.html",form=form,cart_items=cart_items)
