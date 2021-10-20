@@ -1,25 +1,36 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <div class="search-bar">
-        <input type="text" placeholder="Search..">
-        <button>Find</button>
-    </div>
-    <div class="sort-by-theme">
-            <label for="sort_by_theme">Sort by theme</label>
-            <select name="sort_by_theme" id="sort_by_theme">
-                {% for theme in all_themes %}
-                <option value="{{theme}}">{{theme}}</option>
-                {% endfor %}
-            </select>
-    </div>
-    <div class="show-fig">
-        {% for theme in themes %}
-        <div class="fig-detail">
-            <img src="{{theme.img_url}}" alt="fig image" width="220" height="260">
-            <p>MiniFig Id: {{theme.id}}</p>
-            <p>MiniFig Name: {{theme.name}}</p>
-        </div>
+<div class="search-bar">
+    <input type="text" placeholder="Search..">
+    <button>Find</button>
+</div>
+<div class="sort-by-theme">
+    <label for="sort_by_theme">Sort by theme</label>
+    <select name="sort_by_theme" id="sort_by_theme">
+        {% for theme in all_themes %}
+        <option value="{{theme}}">{{theme}}</option>
         {% endfor %}
-    </div>
+    </select>
+</div>
+<div class="show-fig" id="fig-container">
+</div>
+<script>
+    function load_data(theme = 'General') {
+        $.ajax({
+            url: "/browse_fig/by_theme/" + theme,
+            method: "GET",
+            success: function (data) {
+                $('#fig-container').html(data.html)
+            }
+        })
+    }
+    $(document).ready(function () {
+        load_data();
+    })
+    $("#sort_by_theme").change(function () {
+        load_data($(this).val())
+    });
+</script>
+
 {% endblock %}

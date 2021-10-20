@@ -5,7 +5,7 @@ from miniFig_app.models.figure import Figure
 from miniFig_app.form import AddToCartForm
 
 all_themes = [
-    "General", "Basic Set", "Disney Princess", "Duplo", "Super Heros", "City", "Star Wars", "Harry Potter"
+    "General", "Basic Set", "Disney Princess", "Duplo, Town", "Castle", "City", "Star Wars", "Harry Potter"
 ]
 
 
@@ -31,6 +31,12 @@ def fetch_by_year(year=2021):
 def browse_all_by_theme(theme="General"):
     themes = Figure.browse_all_by_theme(theme)
     return render_template('theme.html', themes=themes, all_themes=all_themes)
+
+@app.route('/browse_fig/by_theme/<theme>')
+def fetch_by_theme(theme="General"):
+    data = Figure.browse_all_by_theme(theme)
+    return jsonify({'html': render_template('by_theme.html', data=data)})
+
 
 
 @app.route("/display_minifig/<id>")
