@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, jsonify
 from miniFig_app import app
 from miniFig_app.models.sell_fig import Sell_fig
 from miniFig_app.models.figure import Figure
@@ -21,6 +21,11 @@ def browse_all_by_year(year=2021):
     data = Figure.browse_all_by_year(year)
     return render_template('year.html', data=data)
 
+# Return partial html as json response to jquery request
+@app.route('/browse_fig/by_year/<year>')
+def fetch_by_year(year=2021):
+    data = Figure.browse_all_by_year(year)
+    return jsonify({'html': render_template('by_year.html', data=data)})
 
 @app.route('/browse_fig/theme/<theme>')
 def browse_all_by_theme(theme="General"):

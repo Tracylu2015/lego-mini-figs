@@ -13,13 +13,24 @@
                 {% endfor %}
             </select>
     </div>
-    <div class="show-fig">
-        {% for year in data %}
-        <div class="fig-detail">
-            <img src="{{year.img_url}}" alt="fig image" width="220" height="260">
-            <p>MiniFig Id: {{year.id}}</p>
-            <p>MiniFig Name: {{year.name}}</p>
-        </div>
-        {% endfor %}
+    <div class="show-fig" id="fig-container">
     </div>
+
+<script>
+function load_data(year='2021') {
+    $.ajax({
+        url: "/browse_fig/by_year/" + year,
+        method: "GET",
+        success: function(data) {
+            $('#fig-container').html(data.html)
+        }
+    })
+}
+$(document).ready(function(){
+    load_data();
+})
+$("#sort_by_year").change(function(){
+    load_data($(this).val())
+});
+</script>
 {% endblock %}

@@ -1,0 +1,7 @@
+{% for year in data %}
+<div class="fig-detail">
+    <img src="{{year.img_url}}" alt="fig image" width="220" height="260">
+    <p>MiniFig Id: {{year.id}}</p>
+    <p>MiniFig Name: {{year.name}}</p>
+</div>
+{% endfor %}

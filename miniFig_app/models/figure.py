@@ -30,7 +30,6 @@ class Figure(db.Model):
     @classmethod
     def browse_all_by_year(cls,year):
         browse_figs = Figure.query.filter(Figure.year == year).limit(30).all()
-        print(browse_figs)#select * by year
         return browse_figs
 
     @classmethod
