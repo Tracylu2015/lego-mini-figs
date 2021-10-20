@@ -3,6 +3,7 @@ from miniFig_app import app
 from miniFig_app.models.sell_fig import Sell_fig
 from miniFig_app.models.figure import Figure
 from miniFig_app.form import AddToCartForm
+import math
 
 all_themes = [
     "General", "Basic Set", "Disney Princess", "Duplo, Town", "Castle", "City", "Star Wars", "Harry Potter"
@@ -11,19 +12,56 @@ all_themes = [
 
 @app.route('/browse_fig')
 def browse_all():
-    # query data and pass to the html
-    data = Figure.browse_all()
-    return render_template('browse_all.html', data=data)
+    return render_template('browse_all.html')
 
 @app.route('/browse_fig/by_selection')
 def fetch_all():
-    selection = request.args.get('selection', 'most_popular')
+    selection = request.args.get('selection', 'most_popular') # Get selection argument 
+    page_number = request.args.get('page_number', '1') # Get selection page_number 
+    if page_number.isdigit():
+        page_number = int(page_number)
+    else:
+        page_number = 1
+    page_limit = request.args.get('page_limit', '10') # Get selection page_limit
+    if page_limit.isdigit():
+        page_limit = int(page_limit)
+    else:
+        page_limit = 10
+
+    offset = (page_number - 1) * page_limit # Calculate database offset
+    """
+    Pagination if page size = 10
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+    10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+    """
     # query data and pass to the html
     if selection == 'on_sale':
         data = [data.figure for data in Sell_fig.get_all_sell_by_selection()]
     else:
-        data = Figure.browse_all()
-    return jsonify({'html': render_template('by_all_sell.html', data=data)})
+        data = Figure.browse_all(offset=offset, page_size=page_limit)
+
+    # Calculate page nubmer
+    total_pages = math.ceil(Figure.count_all() * 1.0 / page_limit)
+    total_page_indicator = 4 # Only show 4 page indicators
+
+    next_page = None
+    prev_page = None
+    if page_number > 1:
+        prev_page = f"load_data(\"{selection}\", \"{page_number - 1}\", \"{page_limit}\")"
+    if page_number + total_page_indicator + 1 <= total_pages:
+        next_page = f"load_data(\"{selection}\", \"{page_number + total_page_indicator + 1}\", \"{page_limit}\")"
+    
+    page_data = []
+    for page_index in range(page_number, page_number + total_page_indicator + 1):
+        on_click = f"load_data(\"{selection}\", \"{page_index}\", \"{page_limit}\")"
+        page_data.append((page_index, on_click))
+
+    return jsonify(
+        {
+            'html': render_template('by_all_sell.html', data=data),
+            'pagination': render_template('pagination.html', prev_page=prev_page, next_page=next_page, page_data=page_data)
+        }
+    )
 
 
 @app.route('/browse_fig/by_search')
@@ -31,7 +69,6 @@ def search_by_name():
     term = request.args.get('search', '')
     data = Figure.search_by_name(term)
     return jsonify({'html': render_template('by_search_term.html', data=data)})
-
 
 
 @app.route('/browse_fig/year/<year>')

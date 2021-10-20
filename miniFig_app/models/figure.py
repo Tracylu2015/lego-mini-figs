@@ -23,9 +23,14 @@ class Figure(db.Model):
         return '<Figure {}>'.format(self.__dict__)
 
     @classmethod
-    def browse_all(cls):
-        browse_figs = Figure.query.limit(100).all()  # select *
+    def browse_all(cls, offset=0, page_size=100):
+        browse_figs = Figure.query.limit(page_size).offset(offset).all()  # select *
         return browse_figs
+
+    @classmethod
+    def count_all(cls):
+        count_figs = Figure.query.count()
+        return count_figs
     # session_browse.close()
 
     @classmethod

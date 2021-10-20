@@ -17,14 +17,20 @@
 </div>
 
 <div class="on-sale" id="on-sale"></div>
-
+<div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination" id="pagination">
+        </ul>
+    </nav>
+</div>
 <script>
-    function load_data(value = 'most_popular') {
+    function load_data(value = 'most_popular', page_number='1', page_limit='10') {
         $.ajax({
-            url: '/browse_fig/by_selection?selection=' + value,
+            url: '/browse_fig/by_selection?selection=' + value + '&page_number=' + page_number + '&page_limit=' + page_limit,
             method: "GET",
             success: function (data) {
                 $('#on-sale').html(data.html)
+                $('#pagination').html(data.pagination)
             }
         })
     }
@@ -39,15 +45,16 @@
             })
         }
     }
-    $(document).ready(function () {
+    $(document).ready(function() {
         load_data();
-    })
+    });
     $("#sort_by").change(function () {
         load_data($(this).val())
     });
     $('#search').on('input', function () {
         search_term($(this).val())
-    })
+    });
+
 
 </script>
 
