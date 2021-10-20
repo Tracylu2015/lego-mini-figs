@@ -3,11 +3,11 @@
 {% block title %}My Account{% endblock %} 
 
 {% block body %}
-<div class="sidebar">
-    <a href="/user/account/edit">Edit Account Info</a>
-    <a href="/user/account/view_purchased">Purchase History</a>
-    <a href="/user/account/view_sold">Sold History</a>
-    <a href="/sell_fig">Add Item to Sell</a>
+<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+    <a class="btn btn-danger" href="/user/account/edit">Edit Account Info</a>
+    <a class="btn btn-warning" href="/user/account/view_purchased">Purchase History</a>
+    <a class="btn btn-success" href="/user/account/view_sold">Sold History</a>
+    <a class="btn btn-primary" href="/sell_fig">Add Item to Sell</a>
 </div>
 <div class="main_content">
     <h3>Items on sale</h3>

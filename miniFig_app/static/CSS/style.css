@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    padding-left: 80px;
+}
+
+.mb-3{
+    margin-top: 10px;
+}

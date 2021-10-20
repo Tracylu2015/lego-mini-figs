@@ -4,8 +4,9 @@
 
 {% block body %}
 
-<h1>Sell Your MiniFigs</h1>
-<form action="" method="post">
+<h1 class="p-4 text-center">Sell Your MiniFigs</h1>
+<div class="d-flex justify-content-around">
+<form action="" method="post" class="col-4 p-4 bg-dark text-light">
     {{ form.hidden_tag() }}
    {# <p>
         {{ form.image.label }}<br />
@@ -60,6 +61,7 @@
     </p>
     <p>{{ form.submit() }}</p>
 </form>
+</div>
 {% endblock %}
 
 
