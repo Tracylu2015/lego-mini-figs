@@ -22,15 +22,19 @@ def browse_all_by_year(year=2021):
     return render_template('year.html', data=data)
 
 # Return partial html as json response to jquery request
+
+
 @app.route('/browse_fig/by_year/<year>')
 def fetch_by_year(year=2021):
     data = Figure.browse_all_by_year(year)
     return jsonify({'html': render_template('by_year.html', data=data)})
 
+
 @app.route('/browse_fig/theme/<theme>')
 def browse_all_by_theme(theme="General"):
     themes = Figure.browse_all_by_theme(theme)
     return render_template('theme.html', themes=themes, all_themes=all_themes)
+
 
 @app.route('/browse_fig/by_theme/<theme>')
 def fetch_by_theme(theme="General"):
@@ -38,11 +42,16 @@ def fetch_by_theme(theme="General"):
     return jsonify({'html': render_template('by_theme.html', data=data)})
 
 
-
-@app.route("/display_minifig/<id>")
+@app.route('/display_minifig/<id>')
 def get_one_detailed_fig(id):
     form = AddToCartForm()
     detailed_fig = Figure.get_one_by_fig_id(id)
-    sell_info= Sell_fig.get_all_sell_info_by_fig_id(id)
-    blindbox= Sell_fig.get_blindbox()
-    return render_template('display_minifig.html', detailed_fig= detailed_fig, sell_info=sell_info, form=form, blindbox=blindbox)
+    sell_info = Sell_fig.get_all_sell_info_by_fig_id(id)
+    blindbox = Sell_fig.get_blindbox()
+    return render_template('display_minifig.html', detailed_fig=detailed_fig, sell_info=sell_info, form=form, blindbox=blindbox)
+
+
+# @app.route('/display_minifig/<pop>')
+# def fetch_by_selection(pop="Most Popular"):
+#     data = Figure.browse_all()
+#     return jsonify({'html': render_template('by_all', data=data)})

@@ -1,10 +1,7 @@
-from flask import render_template,redirect,url_for,request
+from flask import render_template,redirect
 from flask_login import current_user
 from miniFig_app import app
-from miniFig_app.models.sell_fig import Sell_fig
-from miniFig_app.models.figure import Figure
 from miniFig_app.models.cart import Cart
-from miniFig_app.models.user import User
 from miniFig_app.form import AddToCartForm
 
 @app.route('/add_to_cart/<figure_id>', methods=['GET', 'POST'])
