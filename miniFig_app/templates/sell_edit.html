@@ -3,7 +3,9 @@
 {% block title %}Edit Sell Item{% endblock %} 
 
 {% block body %}
-<form action="" method="post">
+<h1 class="p-4 text-center">Edit Your Sell Figure</h1>
+<div class="d-flex justify-content-around">
+<form action="" method="post" class="col-4 p-4 bg-secondary text-light">
     {{ form.hidden_tag() }}
     <p>
       {{ form.quantity.label }}<br />

@@ -2,13 +2,14 @@
 
 {% block title %}Browse All MiniFigs{% endblock %}
 {%block body %}
+<div style="margin-left: 90px;">
 <div class="search-bar">
-    <input type="text" id="search" placeholder="Search by Name" size="64">
+    <input type="text" id="search" placeholder="  Search by Name" size="64" style="margin: 20px 0 20px 0; border: 2px solid black; border-radius: 5px;">
 </div>
 <div id="search_results" style="background-color: whitesmoke; position: absolute;"></div>
 <div class="sort-by">
     <label for="sort_by">Sort by</label>
-    <select name="sort_by" id="sort_by">
+    <select name="sort_by" id="sort_by" class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" style="width: 20%;">
         <option value="most_popular">Most Popular</option>
         <option value="on_sale">On Sale</option>
         <option value="best_seller">Best Seller</option>
@@ -22,6 +23,7 @@
         <ul class="pagination" id="pagination">
         </ul>
     </nav>
+</div>
 </div>
 <script>
     function load_data(value = 'most_popular', page_number='1', page_limit='10') {

@@ -2,12 +2,12 @@
 
 {% block body %}
 <div class="search-bar">
-    <input type="text" id="search" placeholder="Search by Name" size="64">
+    <input type="text" id="search" placeholder="  Search by Name" size="64" style="margin: 20px 0 20px 0; border: 2px solid black; border-radius: 5px;">
 </div>
 <div id="search_results" style="background-color: whitesmoke; position: absolute;"></div>
 <div class="sort-by-theme">
     <label for="sort_by_theme">Sort by theme</label>
-    <select name="sort_by_theme" id="sort_by_theme">
+    <select name="sort_by_theme" id="sort_by_theme" class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" style="width: 20%;">
         {% for theme in all_themes %}
         <option value="{{theme}}">{{theme}}</option>
         {% endfor %}

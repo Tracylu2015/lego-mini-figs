@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1>Sign In</h1>
-<form action="" method="post" novalidate>
+<h1 class="p-4 text-center">Sign In</h1>
+<div class="d-flex justify-content-around">
+<form action="" method="post" novalidate class="col-4 p-4 bg-secondary text-light">
   {{ form.hidden_tag() }}
   <p>
     {{ form.email.label }}<br />
@@ -21,4 +22,5 @@
   <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
   <p>{{ form.submit() }}</p>
 </form>
+</div>
 {% endblock %}

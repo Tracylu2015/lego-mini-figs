@@ -1,38 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}My Account{% endblock %} 
+{% block title %}My Account{% endblock %}
 
 {% block body %}
-<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-    <a class="btn btn-danger" href="/user/account/edit">Edit Account Info</a>
-    <a class="btn btn-warning" href="/user/account/view_purchased">Purchase History</a>
-    <a class="btn btn-success" href="/user/account/view_sold">Sold History</a>
-    <a class="btn btn-primary" href="/sell_fig">Add Item to Sell</a>
+<div style="margin-left: 90px;">
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <a class="btn btn-danger" href="/user/account/edit">Edit Account Info</a>
+        <a class="btn btn-warning" href="/user/account/view_purchased">Purchase History</a>
+        <a class="btn btn-success" href="/user/account/view_sold">Sold History</a>
+        <a class="btn btn-primary" href="/sell_fig">Add Item to Sell</a>
+    </div>
 </div>
-<div class="main_content">
-    <h3>Items on sale</h3>
+
+<h2 style="margin-left: 90px; margin-top:20px;">Items on sale</h2>
 {%for item in sell_figs %}
-<div class="card mb-3 on-sale" style="max-width: 540px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <img src="{{item.figure.img_url}}" alt="fig image" width="180" height="220">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <ul style="list-style: none;">
-                    <li>MiniFig Id: {{item.figure_id}}</li>
-                    <li>MiniFig Name: {{item.figure.name}}</li>
-                    <li>MiniFig Quantity: {{item.quantity}}</li>
-                    <li>MiniFig Price: ${{item.sell_price}}</li>
-                    <li>MiniFig Sell Posted At: {{item.created_at}}</li>
-                    <li>
-                        <a href="/sell_fig/edit/{{item.id}}">Edit Item</a>
-                        <a href="/sell_fig/delete/{{item.id}}">Remove from List</a>
-                    </li>
-                </ul>
+<div style="margin-left: 90px;">
+    <div class="card mb-3 on-sale" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{item.figure.img_url}}" alt="fig image" width="180" height="220">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <ul style="list-style: none;">
+                        <li>MiniFig Id: {{item.figure_id}}</li>
+                        <li>MiniFig Name: {{item.figure.name}}</li>
+                        <li>MiniFig Quantity: {{item.quantity}}</li>
+                        <li>MiniFig Price: ${{item.sell_price}}</li>
+                        <li>MiniFig Sell Posted At: {{item.created_at}}</li>
+                        <li>
+                            <a href="/sell_fig/edit/{{item.id}}">Edit Item</a>
+                            <a href="/sell_fig/delete/{{item.id}}">Remove from List</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endfor %}
 {% endblock %}
