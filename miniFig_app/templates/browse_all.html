@@ -3,9 +3,10 @@
 {% block title %}Browse All MiniFigs{% endblock %}
 {%block body %}
 <div class="search-bar">
-    <input type="text" placeholder="Search by Name or Id" size="64">
+    <input type="text" id="search" placeholder="Search by Name or Id" size="64">
     <button>Find</button>
 </div>
+<div id="search_results" style="background-color: whitesmoke; position: absolute;"></div>
 <div class="sort-by">
     <label for="sort_by">Sort by</label>
     <select name="sort_by" id="sort_by">
@@ -28,12 +29,27 @@
             }
         })
     }
+    function search_term(value) {
+        if (value.length >= 2) {
+            $.ajax({
+                url: '/browse_fig/by_search?search=' + value,
+                method: "GET",
+                success: function (data) {
+                    $('#search_results').html(data.html)
+                }
+            })
+        }
+    }
     $(document).ready(function () {
         load_data();
     })
     $("#sort_by").change(function () {
         load_data($(this).val())
     });
+    $('#search').on('input', function () {
+        search_term($(this).val())
+    })
+
 </script>
 
 {% endblock %}

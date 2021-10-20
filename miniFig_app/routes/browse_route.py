@@ -25,6 +25,14 @@ def fetch_all():
         data = Figure.browse_all()
     return jsonify({'html': render_template('by_all_sell.html', data=data)})
 
+
+@app.route('/browse_fig/by_search')
+def search_by_name():
+    term = request.args.get('search', '')
+    data = Figure.search_by_name(term)
+    return jsonify({'html': render_template('by_search_term.html', data=data)})
+
+
 @app.route('/browse_fig/year/<year>')
 def browse_all_by_year(year=2021):
     data = Figure.browse_all_by_year(year)
