@@ -9,27 +9,31 @@
 <div class="sort-by">
     <label for="sort_by">Sort by</label>
     <select name="sort_by" id="sort_by">
-        <option>Most Popular</option>
-        <option>On Sale</option>
-        <option>Best Seller</option>
-        <option>Reviews</option>
+        <option value="most_popular">Most Popular</option>
+        <option value="on_sale">On Sale</option>
+        <option value="best_seller">Best Seller</option>
+        <option value="reviews">Reviews</option>
     </select>
 </div>
 
-{% for fig in data %}
+<div class="on-sale" id="on-sale"></div>
 
-<a href="/display_minifig/{{fig.id}}">
-    <div>
-        <img src="{{fig.img_url}}" alt="fig image" width="160" height="220">
-
-        {{fig.id}}
-        {{fig.name}}
-        {{fig.year}}
-        {{fig.theme}}
-
-    </div>
-</a>
-
-{% endfor %}
+<script>
+    function load_data(value = 'most_popular') {
+        $.ajax({
+            url: '/browse_fig/by_selection?selection=' + value,
+            method: "GET",
+            success: function (data) {
+                $('#on-sale').html(data.html)
+            }
+        })
+    }
+    $(document).ready(function () {
+        load_data();
+    })
+    $("#sort_by").change(function () {
+        load_data($(this).val())
+    });
+</script>
 
 {% endblock %}

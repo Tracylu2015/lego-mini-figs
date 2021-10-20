@@ -1,4 +1,4 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from miniFig_app import app
 from miniFig_app.models.sell_fig import Sell_fig
 from miniFig_app.models.figure import Figure
@@ -15,17 +15,25 @@ def browse_all():
     data = Figure.browse_all()
     return render_template('browse_all.html', data=data)
 
+@app.route('/browse_fig/by_selection')
+def fetch_all():
+    selection = request.args.get('selection', 'most_popular')
+    # query data and pass to the html
+    if selection == 'on_sale':
+        data = [data.figure for data in Sell_fig.get_all_sell_by_selection()]
+    else:
+        data = Figure.browse_all()
+    return jsonify({'html': render_template('by_all_sell.html', data=data)})
 
 @app.route('/browse_fig/year/<year>')
 def browse_all_by_year(year=2021):
     data = Figure.browse_all_by_year(year)
     return render_template('year.html', data=data)
 
-# Return partial html as json response to jquery request
-
 
 @app.route('/browse_fig/by_year/<year>')
 def fetch_by_year(year=2021):
+    # Return partial html as json response to jquery request
     data = Figure.browse_all_by_year(year)
     return jsonify({'html': render_template('by_year.html', data=data)})
 
@@ -49,9 +57,3 @@ def get_one_detailed_fig(id):
     sell_info = Sell_fig.get_all_sell_info_by_fig_id(id)
     blindbox = Sell_fig.get_blindbox()
     return render_template('display_minifig.html', detailed_fig=detailed_fig, sell_info=sell_info, form=form, blindbox=blindbox)
-
-
-# @app.route('/display_minifig/<pop>')
-# def fetch_by_selection(pop="Most Popular"):
-#     data = Figure.browse_all()
-#     return jsonify({'html': render_template('by_all', data=data)})
