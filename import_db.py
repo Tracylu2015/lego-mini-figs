@@ -33,3 +33,4 @@ with Session(engine) as session:
                 f.theme = category
                 session.merge(f)
                 session.commit()
+

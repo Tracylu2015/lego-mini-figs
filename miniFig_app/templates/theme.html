@@ -2,9 +2,9 @@
 
 {% block body %}
 <div class="search-bar">
-    <input type="text" placeholder="Search.." size="64">
-    <button>Find</button>
+    <input type="text" id="search" placeholder="Search by Name" size="64">
 </div>
+<div id="search_results" style="background-color: whitesmoke; position: absolute;"></div>
 <div class="sort-by-theme">
     <label for="sort_by_theme">Sort by theme</label>
     <select name="sort_by_theme" id="sort_by_theme">
@@ -25,12 +25,27 @@
             }
         })
     }
+    function search_term(value) {
+        if (value.length >= 2) {
+            $.ajax({
+                url: '/browse_fig/by_search?search=' + value,
+                method: "GET",
+                success: function (data) {
+                    $('#search_results').html(data.html)
+                }
+            })
+        }
+    }
     $(document).ready(function () {
         load_data();
     })
     $("#sort_by_theme").change(function () {
         load_data($(this).val())
     });
+    $('#search').on('input', function () {
+        search_term($(this).val())
+    })
+
 </script>
 
 {% endblock %}

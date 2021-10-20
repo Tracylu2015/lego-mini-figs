@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="search-bar">
-        <input type="text" placeholder="Search.." size="64">
-        <button>Find</button>
+        <input type="text" placeholder="Search by Name" size="64" id="search">
     </div>
+    <div id="search_results" style="background-color: whitesmoke; position: absolute;"></div>
     <div class="sort-by-year">
             <label for="sort_by_year">Sort by year</label>
             <select name="sort_by_year" id="sort_by_year">
@@ -26,11 +26,31 @@ function load_data(year='2021') {
         }
     })
 }
+
+function search_term(value) {
+        if (value.length >= 2) {
+            $.ajax({
+                url: '/browse_fig/by_search?search=' + value,
+                method: "GET",
+                success: function (data) {
+                    $('#search_results').html(data.html)
+                }
+            })
+        }
+    }
+
+
 $(document).ready(function(){
     load_data();
-})
+});
+
 $("#sort_by_year").change(function(){
     load_data($(this).val())
 });
+
+$('#search').on('input', function () {
+    search_term($(this).val())
+});
+
 </script>
 {% endblock %}
