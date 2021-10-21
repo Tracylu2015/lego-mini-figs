@@ -32,7 +32,9 @@
 
     <h4 style="margin-top: 20px;"><b>Blind Box</b></h4>
     {% for box in blindbox %}
-    <img src="{{box.img_url}}" width="180" height="200">
+    <img src="{{box.figure.img_url}}" width="180" height="200">
+    <br>
+    <br>
     <h6>Quantity: {{box.quantity}}</h6>
     <h6>Price: {{box.sell_price}}</h6>
         <form action="/add_to_cart/{{box.figure_id}}" method="post">
