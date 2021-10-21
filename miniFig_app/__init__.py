@@ -3,7 +3,7 @@ from miniFig_app.config.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-
+from flask_caching import Cache
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -12,6 +12,9 @@ login.login_view = 'login'
 
 db = SQLAlchemy()
 db.init_app(app)
+
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+cache.init_app(app)
 
 # Create migration script
 migrate = Migrate(app, db)
