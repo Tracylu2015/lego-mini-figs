@@ -39,15 +39,8 @@ class Figure(db.Model):
         return browse_figs
 
     @classmethod
-    def all_year(cls,offset=0, page_size=100):
-        browse_figs = Figure.query.limit(page_size).offset(offset).all()
-        return browse_figs
-
-    @classmethod
-    def browse_all_by_theme(cls, theme):
-        browse_figs = Figure.query.filter(
-            Figure.theme == theme).limit(30).all()
-        print(browse_figs)  # select * by theme
+    def browse_all_by_theme(cls, theme,offset=0, page_size=100):
+        browse_figs = Figure.query.filter(Figure.theme == theme).limit(page_size).offset(offset).all() # select * by theme
         return browse_figs
 
     @classmethod

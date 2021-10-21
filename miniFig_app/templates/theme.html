@@ -20,19 +20,28 @@
     </div>
     <div class="show-fig" id="fig-container">
     </div>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination" id="pagination">
+            </ul>
+        </nav>
+    </div>
 </div>
 
 
 <script>
-    function load_data(theme = 'General') {
+    function load_data(theme = 'General',page_number='1', page_limit='10') {
         $.ajax({
-            url: "/browse_fig/by_theme/" + theme,
+            url: '/browse_fig/by_theme/' + theme + '?page_number=' + page_number + '&page_limit=' + page_limit,
             method: "GET",
             success: function (data) {
                 $('#fig-container').html(data.html)
+                $('#pagination').html(data.pagination)
             }
         })
     }
+
+
     function search_term(value) {
         if (value.length >= 2) {
             $.ajax({
