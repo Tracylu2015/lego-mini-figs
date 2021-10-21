@@ -1,6 +1,5 @@
 from flask import render_template,redirect
 from miniFig_app import app
-from miniFig_app.models.sell_fig import Sell_fig
 
 @app.route('/')
 def index():
