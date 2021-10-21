@@ -92,11 +92,11 @@ class SellItemUpdateForm(FlaskForm):
 
 class AddToCartForm(FlaskForm):
     fig_quantity = IntegerField('Purchase Quantity', validators=[DataRequired()])
-    sell_fig_id = StringField('Sell Fig Id. this is a hidden field', 
-        validators = [validators.DataRequired()], widget=widgets.HiddenInput())
+    sell_fig_id = HiddenField('Sell Fig Id. this is a hidden field', 
+        validators = [validators.DataRequired()])
     submit = SubmitField('Add to cart')
 
-    def validate_sell_price(self, fig_quantity, sell_fig_id):
-        quantity = Sell_fig.query.filter(Sell_fig.id == sell_fig_id).one()
+    def validate_quantity(self, fig_quantity, sell_fig_id):
+        quantity = Sell_fig.query.filter(Sell_fig.id == sell_fig_id.data).first()
         if fig_quantity.data > quantity.quantity: #quantity???
             raise ValidationError('Purchase Quantity must less than Inventory Quantity')
