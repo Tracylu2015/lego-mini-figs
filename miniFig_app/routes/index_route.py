@@ -8,5 +8,5 @@ def index():
 
 @app.route('/blindbox')
 def blindbox():
-    id = Sell_fig.get_blindbox()
+    id = "BLINDBOX"
     return redirect(f'/display_minifig/{id}')
