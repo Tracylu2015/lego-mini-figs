@@ -11,12 +11,11 @@ all_themes = [
 
 
 @app.route('/browse_fig')
-@cache.cached(timeout=300)
 def browse_all():
     return render_template('browse_all.html')
 
 @app.route('/browse_fig/by_selection')
-@cache.cached(timeout=300)
+@cache.cached(timeout=300, query_string=True)
 def fetch_all():
     selection = request.args.get('selection', 'most_popular') # Get selection argument 
     page_number = request.args.get('page_number', '1') # Get selection page_number 
@@ -67,6 +66,7 @@ def fetch_all():
 
 
 @app.route('/browse_fig/by_search')
+@cache.cached(timeout=300, query_string=True)
 def search_by_name():
     term = request.args.get('search', '')
     data = Figure.search_by_name(term)
@@ -74,14 +74,14 @@ def search_by_name():
 
 
 @app.route('/browse_fig/year/<year>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=300, query_string=True)
 def browse_all_by_year(year=2021):
     data = Figure.browse_all_by_year(year)
     return render_template('year.html', data=data)
 
 
 @app.route('/browse_fig/by_year/<year>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=300, query_string=True)
 def fetch_by_year(year=2021):
     # Return partial html as json response to jquery request
     data = Figure.browse_all_by_year(year)
@@ -89,21 +89,21 @@ def fetch_by_year(year=2021):
 
 
 @app.route('/browse_fig/theme/<theme>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=300, query_string=True)
 def browse_all_by_theme(theme="General"):
     themes = Figure.browse_all_by_theme(theme)
     return render_template('theme.html', themes=themes, all_themes=all_themes)
 
 
 @app.route('/browse_fig/by_theme/<theme>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=300, query_string=True)
 def fetch_by_theme(theme="General"):
     data = Figure.browse_all_by_theme(theme)
     return jsonify({'html': render_template('by_theme.html', data=data)})
 
 
 @app.route('/display_minifig/<id>')
-@cache.cached(timeout=300)
+@cache.cached(timeout=300, query_string=True)
 def get_one_detailed_fig(id):
     form = AddToCartForm()
     detailed_fig = Figure.get_one_by_fig_id(id)

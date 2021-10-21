@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from miniFig_app import app, db
 from miniFig_app.form import LoginForm, RegistrationForm, UserUpdateForm
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from flask_bcrypt import Bcrypt
 from miniFig_app.models.user import User
 from miniFig_app.models.sell_fig import Sell_fig
@@ -37,17 +37,20 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/user/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 @app.route('/user/account')
+@login_required
 def user_profile():
     user_id = current_user.get_id()
     sell_figs = Sell_fig.display_all_by_user_id(user_id)
     return render_template('user_profile.html', sell_figs=sell_figs)
 
 @app.route('/user/account/edit', methods=['GET', 'POST'])
+@login_required
 def edit_user():
     form = UserUpdateForm()
     if form.validate_on_submit():
