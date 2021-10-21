@@ -5,6 +5,7 @@ from miniFig_app.models.figure import Figure
 from miniFig_app.form import AddToCartForm
 import math
 
+
 all_themes = [
     "General", "Basic Set", "Disney Princess", "Duplo, Town", "Castle", "City", "Star Wars", "Harry Potter"
 ]
