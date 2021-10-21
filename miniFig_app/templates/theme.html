@@ -6,7 +6,8 @@
         <input type="text" id="search" placeholder="  Search by Name" size="64"
             style="margin: 20px 0 20px 0; border: 2px solid black; border-radius: 5px;">
     </div>
-    <div id="search_results" style="background-color: whitesmoke; position: absolute;max-width: 32%; display:block;">
+    <div id="search_results"
+        style="background-color: whitesmoke; position: absolute;max-width: 32%; display:block;z-index:0;">
     </div>
     <div class="sort-by-theme">
         <label for="sort_by_theme">Sort by theme</label>
@@ -41,6 +42,8 @@
                     $('#search_results').html(data.html)
                 }
             })
+        } else {
+            $('#search_results').html("<div/>")
         }
     }
     $(document).ready(function () {
