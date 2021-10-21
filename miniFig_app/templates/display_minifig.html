@@ -2,7 +2,7 @@
 
 {% block title %}Browse All MiniFigs{% endblock %}
 {%block body %}
-
+<div style="margin-left: 90px;">
     <h3>MiniFig Details</h3>
     <div class="card mb-3 on-sale" style="max-width: 540px;">
         <div class="row no-gutters">
@@ -11,11 +11,11 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: black;">MiniFig ID: {{detailed_fig.id}}</h5>
+                    <h5 class="card-title" style="color: black;">ID: {{detailed_fig.id}}</h5>
                     <p class="card-text">    
-                    <p>MiniFig Name:{{detailed_fig.name}}</p>
-                    <p>MiniFig Theme:{{detailed_fig.theme}}</p>
-                    <p>Year Released:{{detailed_fig.year}}</p>
+                    <p><b>Name</b>: {{detailed_fig.name}}</p>
+                    <p><b>Theme</b>: {{detailed_fig.theme}}</p>
+                    <p><b>Year Released</b>: {{detailed_fig.year}}</p>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
         </select>
     </div>
 
-    <h6>Blind Box</h6>
+    <h4 style="margin-top: 20px;"><b>Blind Box</b></h4>
     {% for box in blindbox %}
     <img src="{{box.img_url}}" width="180" height="200">
     <h6>Quantity: {{box.quantity}}</h6>
@@ -45,7 +45,7 @@
             <span style="color: red">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <button>Add to Cart</button>
+        <button style="margin-bottom: 10px;">Add to Cart</button>
         </form>
     {% endfor %}
 
@@ -64,7 +64,8 @@
             <span style="color: red">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <button>Add to Cart</button>
+        <button style="margin-bottom: 10px;">Add to Cart</button>
+        <div>-------------------------------------------------------</div>
         </form> 
 
     {% else %}
@@ -80,5 +81,7 @@
 
     </div>
     #}
+
+</div>
 
 {% endblock %}
