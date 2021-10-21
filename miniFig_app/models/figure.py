@@ -34,8 +34,13 @@ class Figure(db.Model):
     # session_browse.close()
 
     @classmethod
-    def browse_all_by_year(cls, year):
-        browse_figs = Figure.query.filter(Figure.year == year).limit(30).all()
+    def browse_all_by_year(cls,year,offset=0, page_size=100):
+        browse_figs = Figure.query.filter(Figure.year == year).limit(page_size).offset(offset).all()
+        return browse_figs
+
+    @classmethod
+    def all_year(cls,offset=0, page_size=100):
+        browse_figs = Figure.query.limit(page_size).offset(offset).all()
         return browse_figs
 
     @classmethod
