@@ -49,8 +49,8 @@ class Sell_fig(db.Model):
         return sell_info 
 
     @classmethod
-    def get_all_sell_by_selection(cls):
-        sell_info = Sell_fig.query.filter(Sell_fig.quantity > 0).all()
+    def get_all_sell_by_selection(cls, offset=0, page_size=100):
+        sell_info = Sell_fig.query.filter(Sell_fig.quantity > 0).limit(page_size).offset(offset).all()
         return sell_info 
 
     @classmethod
