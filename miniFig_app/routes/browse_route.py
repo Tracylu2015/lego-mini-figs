@@ -38,7 +38,7 @@ def fetch_all():
     """
     # query data and pass to the html
     if selection == 'on_sale':
-        data = [data.figure for data in Sell_fig.get_all_sell_by_selection()]
+        data = [data.figure for data in Sell_fig.get_all_sell_by_selection(offset=offset, page_size=page_limit)]
     else:
         data = Figure.browse_all(offset=offset, page_size=page_limit)
 
