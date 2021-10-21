@@ -6,7 +6,12 @@
 .navbar {
     padding-left: 80px;
 }
+.navbar a {
+    font-size: larger;
+    margin-left: 20px;
+}
 
 .mb-3{
     margin-top: 10px;
+    margin-right: 5px;
 }
