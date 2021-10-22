@@ -54,6 +54,12 @@ class Sell_fig(db.Model):
         return sell_info 
 
     @classmethod
+    def count_all(cls):
+        # count_figs = Sell_fig.query.group_by(Sell_fig.figure_id).count()
+        uniq_figs = Sell_fig.query.with_entities(Sell_fig.figure_id, func.count(Sell_fig.figure_id)).group_by(Sell_fig.figure_id).all()
+        return len(uniq_figs)
+
+    @classmethod
     def get_blindbox(cls):
         blindbox = Sell_fig.query.filter(Sell_fig.figure_id == "BLINDBOX").all()
         return blindbox

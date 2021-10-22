@@ -16,7 +16,7 @@ def browse_all():
     return render_template('browse_all.html')
 
 @app.route('/browse_fig/by_selection')
-@cache.cached(timeout=300, query_string=True)
+# @cache.cached(timeout=300, query_string=True)
 def fetch_all():
     selection = request.args.get('selection', 'most_popular') # Get selection argument 
     page_number = request.args.get('page_number', '1') # Get selection page_number 
@@ -39,24 +39,27 @@ def fetch_all():
     # query data and pass to the html
     if selection == 'on_sale':
         data = [data.figure for data in Sell_fig.get_all_sell_by_selection(offset=offset, page_size=page_limit)]
+        total_pages = math.ceil(Sell_fig.count_all() * 1.0 / page_limit)
     else:
         data = Figure.browse_all(offset=offset, page_size=page_limit)
+        total_pages = math.ceil(Figure.count_all() * 1.0 / page_limit)
 
     # Calculate page nubmer
-    total_pages = math.ceil(Figure.count_all() * 1.0 / page_limit)
-    total_page_indicator = 4 # Only show 4 page indicators
+    
+    total_page_indicator = min(5, total_pages) # Only show 4 page indicators
 
     next_page = None
     prev_page = None
     if page_number > 1:
         prev_page = f"load_data(\"{selection}\", \"{page_number - 1}\", \"{page_limit}\")"
-    if page_number + total_page_indicator + 1 <= total_pages:
-        next_page = f"load_data(\"{selection}\", \"{page_number + total_page_indicator + 1}\", \"{page_limit}\")"
+    if page_number + total_page_indicator <= total_pages:
+        next_page = f"load_data(\"{selection}\", \"{page_number + total_page_indicator}\", \"{page_limit}\")"
     
     page_data = []
-    for page_index in range(page_number, page_number + total_page_indicator + 1):
-        on_click = f"load_data(\"{selection}\", \"{page_index}\", \"{page_limit}\")"
-        page_data.append((page_index, on_click))
+    for page_index in range(0, total_page_indicator):
+        current_page = page_number + page_index
+        on_click = f"load_data(\"{selection}\", \"{current_page}\", \"{page_limit}\")"
+        page_data.append((current_page, on_click))
 
     return jsonify(
         {
