@@ -144,7 +144,7 @@ def fetch_by_theme(theme="General"):
         page_limit = 10
 
     offset = (page_number - 1) * page_limit # Calculate database offset
-  
+
     # query data and pass to the html
     data = Figure.browse_all_by_theme(theme, offset=offset, page_size=page_limit)
     
