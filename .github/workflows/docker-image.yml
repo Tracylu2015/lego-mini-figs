@@ -14,6 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      env:
+        ACTIONS_RUNNER_DEBUG: "true"
+        ACTIONS_STEP_DEBUG: "true"
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
